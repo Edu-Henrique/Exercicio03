@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    padding: 2rem;
+    overflow: auto;
+}
+
+form{
+    width: 100%;
+    max-width: 37.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    border-radius: .8rem;
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(122,122,122,1);
+    -moz-box-shadow: 0px 0px 14px 0px rgba(122,122,122,1);
+    box-shadow: 0px 0px 14px 0px rgba(122,122,122,1);
+
+    background-color: #0e4b67;
+}
+
+form > label{
+    width: 100%;
+    margin: .4rem 0;
+    color: #ffffff;
+}
+
+form > label > input,
+form > label > select{
+    display: block;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: .2rem;
+    transition: .3s ease-in-out;
+    border: 0;
+    border-bottom: 2px solid #ffffff;
+    color: #ffffff;
+    background-color: transparent;
+}
+
+form > label > select > option{
+    color: #000000;
+}
+
+form > label > input:focus{
+    padding-left: .5rem;
+    outline: none;
+    border-color: #17ff2b;
+}
+
+form > input[type="submit"]{
+    display: block;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: .2rem;
+    transition: .3s ease-in-out;
+    margin: .4rem 0;
+    padding: .4rem;
+    border-radius: .4rem;
+    border: none;
+    color: #ffffff;
+    background-color: #096aa8;
+}
+
+form > input[type="submit"]:hover{
+    background-color: #0a5091;
+}
