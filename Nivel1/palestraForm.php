@@ -38,10 +38,11 @@
         </label>
         <label for="ministrante">
             Ministrante
-            <select name="ministrante" id="ministrante">
-                <option value="1">Eduardo</option>
-                <option value="2">Henrique</option>
-                <option value="3">Pedro</option>
+            <select name="ministrante" id="ministrante">                
+                <?php 
+                    require_once __DIR__ . "/lista_combo_ministrante.php";
+                    echo lista_combo_ministrante();
+                ?>
             </select>
         </label>
 
