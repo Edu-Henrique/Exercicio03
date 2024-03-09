@@ -2,10 +2,12 @@
 
 $data = $_POST;
 
+var_dump($data);
+
 try{
     $conn = mysqli_connect("localhost", "root", "", "eventos");
-    $sql = "INSERT INTO MINISTRANTE (ID, NOME, TELEFONE, EMAIL)
-            VALUES (DEFAULT, '{$data['nome']}', '{$data['telefone']}', '{$data['email']}')";
+    $sql = "INSERT INTO INSCRICAO (ID, id_participante, id_palestra)
+            VALUES (DEFAULT, '{$data['id_participante']}', '{$data['id_palestra']}')";            
     $result = mysqli_query($conn, $sql);
     mysqli_close($conn);
     header("Location: listaPalestra.php");

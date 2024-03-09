@@ -42,6 +42,6 @@
             <input type="email" name="email" id="email" >
         </label>
         <input type="submit" value="Cadastrar">
-    </form>
+    </form>    
 </body>
 </html>
