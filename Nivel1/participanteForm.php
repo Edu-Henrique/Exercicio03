@@ -27,11 +27,10 @@
         <label for="cidade">
             Cidade            
             <select name="cidade" id="cidade">
-                <option value="1">Cuiaba</option>
-                <option value="2">Cáceres</option>
-                <option value="3">Lucas do Rio Verde</option>
-                <option value="4">Varzea Grande</option>
-                <option value="5">Sinop</option>
+                <?php 
+                    require_once __DIR__ . "/lista_combo_cidades.php";
+                    echo lista_combo_cidades();
+                ?>
             </select>
         </label>
         <label for="telefone">
