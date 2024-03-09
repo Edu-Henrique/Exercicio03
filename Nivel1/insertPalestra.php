@@ -8,7 +8,7 @@ try{
             VALUES (DEFAULT, '{$data['nome']}', '{$data['data']}', '{$data['turno']}', '{$data['duracao']}', '{$data['tema']}', '{$data['sala']}', {$data['ministrante']})";
     $result = mysqli_query($conn, $sql);
     mysqli_close($conn);
-    echo "Cadastrado com Sucesso!";
+    echo "Cadastrado com Sucesso! <a href='palestraForm.php'>Voltar</a>";
 } catch(Exception $e)
 {
     echo "Erro: " . $e->getMessage();
