@@ -1,0 +1,168 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    padding: 2rem;
+    overflow: auto;
+}
+
+
+/* CSS DO FORMULARIO */
+form{
+    width: 100%;
+    max-width: 37.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    border-radius: .8rem;
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(122,122,122,1);
+    -moz-box-shadow: 0px 0px 14px 0px rgba(122,122,122,1);
+    box-shadow: 0px 0px 14px 0px rgba(122,122,122,1);
+
+    background-color: #0e4b67;
+}
+
+form > label{
+    width: 100%;
+    margin: .4rem 0;
+    color: #ffffff;
+}
+
+form > label > input,
+form > label > select{
+    display: block;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: .2rem;
+    transition: .3s ease-in-out;
+    border: 0;
+    border-bottom: 2px solid #ffffff;
+    color: #ffffff;
+    background-color: transparent;
+}
+
+form > label > select > option{
+    color: #000000;
+}
+
+form > label > input:focus{
+    padding-left: .5rem;
+    outline: none;
+    border-color: #17ff2b;
+}
+
+form > input[type="submit"]{
+    display: block;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: .2rem;
+    transition: .3s ease-in-out;
+    margin: .4rem 0;
+    padding: .4rem;
+    border-radius: .4rem;
+    border: none;
+    color: #ffffff;
+    background-color: #096aa8;
+}
+
+form > input[type="submit"]:hover{
+    background-color: #0a5091;
+}
+
+/* Css da lista */
+
+table{
+    border-collapse: collapse;
+    border: 1px solid #0e4b67;
+}
+
+table > thead > tr{
+    background-color: #0e4b67;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+table td{
+    padding: .3rem;    
+}
+
+table > tbody > tr{
+    background-color: #0e4b6767;
+}
+
+table > tbody > tr:hover{
+    background-color: #0e4b67c7;
+}
+
+.icon-table{
+    text-align: center;
+}
+
+.icon{
+    width: 20px;    
+}
+
+.button-cad{
+    display: inline-block;
+    padding: .4rem;
+    background-color: #096aa8;
+    border-radius: .4rem;
+    margin-top: 1rem;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.button-cad:hover{
+    background-color: #0a5091;
+}
+
+/* lista inscrições */
+
+.main{
+    align-self: flex-start;
+    width: 100%;    
+}
+
+h1{
+    font-size: 3rem;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+section{
+    max-width: 600px;
+    width: 100%;
+    margin: 1rem auto;
+    background-color: #ebebeb;
+    border-radius: .6rem;
+    padding: .6rem;
+}
+
+section > header> h2{
+    font-size: 2rem;
+}
+
+section > article{
+    margin: .8rem 0;
+    border-bottom: 1px solid #333;
+}
+
+section > article > ul{
+    list-style: none;    
+}
+
+section > article > ul > li{
+    padding: .5rem;    
+}
