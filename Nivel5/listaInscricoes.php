@@ -1,9 +1,10 @@
 <?php
 
 require_once __DIR__ . "/db/inscricao_db.php";
+require_once __DIR__ . "/class/Inscricao.php";
 
-try{   
-    $incricoes = listInscricoes();
+try{       
+    $incricoes = (new Inscricao)->all();
     $output = "";
     $i = 0;    
     foreach($incricoes as $row){

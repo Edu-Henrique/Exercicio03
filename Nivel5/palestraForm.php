@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/lista_combo_ministrante.php";
 require_once __DIR__ . "/db/palestra_db.php";
+require_once __DIR__ . "/class/Palestra.php";
 
 $id = "";
 $nome = "";
@@ -14,8 +15,8 @@ $sala = "";
 try{    
     if(!empty($_REQUEST["action"]) and ($_REQUEST["action"] == "edit")){
         if(isset($_GET["id"])){
-                $id = $_GET["id"];                            
-                $dados = getPalestra($id);
+                $id = $_GET["id"];                
+                $dados = (new Palestra)->find($id);
                 $nome = $dados['nome'];
                 $data = $dados['data'];
                 $turno = $dados['turno'];
@@ -28,24 +29,14 @@ try{
     if(!empty($_REQUEST["action"]) and ($_REQUEST["action"] == "save")){
         
         $data = $_POST;
-
-        $conn = mysqli_connect("localhost", "root", "", "eventos");
-        if(!empty($_GET['edit'])){            
-            updatePalestra($data);
-            
-        } else{            
-            insertPalestra($data);
-        }
+        (new Palestra)->save($data);        
         header("Location: listaPalestra.php");    
     }
 } catch(Exception $e){
     echo "Erro: " . $e->getMessage();
 }
 
-
-
 $comboMinistrante = lista_combo_ministrante();
-
 
 $index = file_get_contents("html/templatePalestraForm.html");
 $index = str_replace("{id}", $id, $index);
@@ -56,6 +47,5 @@ $index = str_replace("{duracao}", $duracao, $index);
 $index = str_replace("{tema}", $tema, $index);
 $index = str_replace("{sala}", $sala, $index);
 $index = str_replace("{optMinistrante}", $comboMinistrante, $index);
-
 
 echo $index;

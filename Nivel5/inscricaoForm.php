@@ -3,6 +3,7 @@
 require_once __DIR__ . "/lista_combo_palestras.php";
 require_once __DIR__ . "/lista_combo_participantes.php";
 require_once __DIR__ . "/db/inscricao_db.php";
+require_once __DIR__ . "/class/Inscricao.php";
 
 if(isset($_GET["id"])){
     $id = $_GET["id"];
@@ -13,7 +14,7 @@ if(!empty($_REQUEST["action"]) and ($_REQUEST["action"]) == "save"){
     $data = $_POST;        
 
     try{
-        insertInscricao($data);
+        (new Inscricao)->save($data);
         header("Location: listaPalestra.php");        
     } catch(Exception $e)
     {

@@ -1,17 +1,18 @@
 <?php
 
-    require_once __DIR__ . "/db/palestra_db.php";
-    require_once __DIR__ . "/db/ministrante_db.php";
+require_once __DIR__ . "/db/palestra_db.php";
+require_once __DIR__ . "/db/ministrante_db.php";
+require_once __DIR__ . "/class/Palestra.php";
 
 try {    
     if(!empty($_GET["action"]) and ($_GET["action"] ==  "remove")){
         if(!empty($_GET['id'])){
-            $id = $_GET['id'];                
-                excluiPalestra($id);
+            $id = $_GET['id'];                                
+            (new Palestra)->delete($id);
         }                
     }   
-
-    $palestras = listPalestra();
+        
+    $palestras = (new Palestra)->all();
 
     $bodyTable = "";    
     foreach($palestras as $row){
