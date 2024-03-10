@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/lista_combo_palestras.php";
 require_once __DIR__ . "/lista_combo_participantes.php";
+require_once __DIR__ . "/db/inscricao_db.php";
 
 if(isset($_GET["id"])){
     $id = $_GET["id"];
@@ -12,11 +13,7 @@ if(!empty($_REQUEST["action"]) and ($_REQUEST["action"]) == "save"){
     $data = $_POST;        
 
     try{
-        $conn = mysqli_connect("localhost", "root", "", "eventos");
-        $sql = "INSERT INTO INSCRICAO (ID, id_participante, id_palestra)
-                VALUES (DEFAULT, '{$data['id_participante']}', '{$data['id_palestra']}')";            
-        $result = mysqli_query($conn, $sql);
-        mysqli_close($conn);
+        insertInscricao($data);
         header("Location: listaPalestra.php");        
     } catch(Exception $e)
     {

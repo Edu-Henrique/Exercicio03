@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/lista_combo_ministrante.php";
+require_once __DIR__ . "/db/palestra_db.php";
 
 $id = "";
 $nome = "";
@@ -10,20 +11,17 @@ $duracao = "";
 $tema = "";
 $sala = "";
 
-try{
-    $conn = mysqli_connect("localhost", "root", "", "eventos");
+try{    
     if(!empty($_REQUEST["action"]) and ($_REQUEST["action"] == "edit")){
         if(isset($_GET["id"])){
-            $id = $_GET["id"];            
-                $sql = "SELECT * FROM PALESTRAS WHERE ID = {$id}";
-                $result = mysqli_query($conn, $sql);
-                $dados = mysqli_fetch_assoc($result);
+                $id = $_GET["id"];                            
+                $dados = getPalestra($id);
                 $nome = $dados['nome'];
                 $data = $dados['data'];
                 $turno = $dados['turno'];
                 $duracao = $dados['duracao'];
                 $tema = $dados['tema'];
-                $sala = $dados['sala'];            
+                $sala = $dados['sala'];                      
         }
     }
 
@@ -32,21 +30,12 @@ try{
         $data = $_POST;
 
         $conn = mysqli_connect("localhost", "root", "", "eventos");
-        if(!empty($_GET['edit'])){
-            $sql = "UPDATE PALESTRAS SET NOME = '{$data['nome']}',
-                                        `DATA` = '{$data['data']}',
-                                        TURNO = '{$data['turno']}', 
-                                        DURACAO = '{$data['duracao']}', 
-                                        TEMA = '{$data['tema']}', 
-                                        SALA = '{$data['sala']}', 
-                                        MINISTRANTE = {$data['ministrante']} WHERE ID = {$data['id']}";
-            $result = mysqli_query($conn, $sql);                            
-        } else{
-            $sql = "INSERT INTO PALESTRAS (ID, NOME, `DATA`, TURNO, DURACAO, TEMA, SALA, MINISTRANTE)
-                    VALUES (DEFAULT, '{$data['nome']}', '{$data['data']}', '{$data['turno']}', '{$data['duracao']}', '{$data['tema']}', '{$data['sala']}', {$data['ministrante']})";
-            $result = mysqli_query($conn, $sql);                    
+        if(!empty($_GET['edit'])){            
+            updatePalestra($data);
+            
+        } else{            
+            insertPalestra($data);
         }
-        mysqli_close($conn);
         header("Location: listaPalestra.php");    
     }
 } catch(Exception $e){

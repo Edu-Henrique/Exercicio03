@@ -1,27 +1,18 @@
 <?php
-try{
-    $conn = mysqli_connect("localhost", "root", "", "eventos");
-    $sql = "SELECT I.id,
-    P.id AS ID_PARTICIPANTE,
-    P.nome AS NOME_PARTICIPANTE,
-    P.telefone AS TELEFONE_PARTICIPANTE,
-    P.email AS EMAIL_PARTICIPANTE,
-    L.id AS ID_PALESTRA,
-    L.nome AS NOME_PALESTRA       
-        FROM inscricao I 
-        INNER JOIN participante P ON I.id_participante = P.id
-        INNER JOIN palestras L ON I.id_palestra = L.id ORDER BY L.ID";
-    $result = mysqli_query($conn, $sql);
+
+require_once __DIR__ . "/db/inscricao_db.php";
+
+try{   
+    $incricoes = listInscricoes();
     $output = "";
-    $i = 0;
-    while ($row = mysqli_fetch_assoc($result)){ 
-        
-        $groupSection[] = $row['ID_PALESTRA'];                        
+    $i = 0;    
+    foreach($incricoes as $row){
+        $groupSection[] = $row[5];                        
         
         if($i == 0){
             $output .= "<section> \n"; 
             $output .= "<header> \n";
-            $output .= "<h2>{$row['NOME_PALESTRA']}</h2> \n";
+            $output .= "<h2>{$row[6]}</h2> \n";
             $output .= "</header> \n";
         }
         
@@ -30,7 +21,7 @@ try{
                 $output .= "</section> \n";
                 $output .= "<section> \n"; 
                 $output .= "<header> \n";
-                $output .= "<h2>{$row['NOME_PALESTRA']}</h2> \n";
+                $output .= "<h2>{$row[6]}</h2> \n";
                 $output .= "</header> \n";
             }
         }
@@ -38,17 +29,16 @@ try{
 
         $output .= "<article> \n";
         $output .= "<ul> \n";
-        $output .= "<li><b>Codigo:</b> {$row['ID_PARTICIPANTE']}</li> \n";                        
-        $output .= "<li><b>Nome:</b> {$row['NOME_PARTICIPANTE']}</li> \n";                        
-        $output .= "<li><b>Telefone:</b> {$row['TELEFONE_PARTICIPANTE']}</li> \n";                        
-        $output .= "<li><b>Email:</b> {$row['EMAIL_PARTICIPANTE']}</li> \n";                        
+        $output .= "<li><b>Codigo:</b> {$row[1]}</li> \n";                        
+        $output .= "<li><b>Nome:</b> {$row[2]}</li> \n";                        
+        $output .= "<li><b>Telefone:</b> {$row[3]}</li> \n";                        
+        $output .= "<li><b>Email:</b> {$row[4]}</li> \n";                        
         $output .= "</ul> \n";
         $output .= "</article> \n";
 
         $i++;
     }        
-    $output .= "</section>";
-    mysqli_close($conn);                                
+    $output .= "</section>";    
 } catch(Exception $e){
     echo $e->getMessage();
 }
