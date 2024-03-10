@@ -7,7 +7,26 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <form enctype="multipart/form-data" action="insertMinistrante.php" method="post">
+
+    <?php
+        
+        if(!empty($_REQUEST["action"]) and ($_REQUEST["action"]) == "save"){
+            $data = $_POST;
+            try{
+                $conn = mysqli_connect("localhost", "root", "", "eventos");
+                $sql = "INSERT INTO MINISTRANTE (ID, NOME, TELEFONE, EMAIL)
+                        VALUES (DEFAULT, '{$data['nome']}', '{$data['telefone']}', '{$data['email']}')";
+                $result = mysqli_query($conn, $sql);
+                mysqli_close($conn);
+                header("Location: listaPalestra.php");                
+            } catch(Exception $e)
+            {
+                echo "Erro: " . $e->getMessage();
+            }   
+        }        
+    ?>
+
+    <form enctype="multipart/form-data" action="ministranteForm.php?action=save" method="post">
         <label for="id">
             Codigo
             <input type="number" name="id" id="id" readonly>

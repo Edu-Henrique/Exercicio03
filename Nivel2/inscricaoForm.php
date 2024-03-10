@@ -11,8 +11,26 @@
         if(isset($_GET["id"])){
             $id = $_GET["id"];
         }
+
+        if(!empty($_REQUEST["action"]) and ($_REQUEST["action"]) == "save"){
+            
+            $data = $_POST;        
+
+            try{
+                $conn = mysqli_connect("localhost", "root", "", "eventos");
+                $sql = "INSERT INTO INSCRICAO (ID, id_participante, id_palestra)
+                        VALUES (DEFAULT, '{$data['id_participante']}', '{$data['id_palestra']}')";            
+                $result = mysqli_query($conn, $sql);
+                mysqli_close($conn);
+                header("Location: listaPalestra.php");
+                // echo "Cadastrado com Sucesso! <a href='ministranteForm.php'>Voltar</a>";
+            } catch(Exception $e)
+            {
+                echo "Erro: " . $e->getMessage();
+            }
+        }
     ?>
-    <form enctype="multipart/form-data" action="insertInscricao.php" method="post">
+    <form enctype="multipart/form-data" action="inscricaoForm.php?action=save" method="post">
         <label for="id">
             Codigo
             <input type="number" name="id" id="id" readonly>

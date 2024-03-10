@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,28 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <form enctype="multipart/form-data" action="insertParticipante.php" method="post">
+
+    <?php
+        if(!empty($_REQUEST["action"]) and ($_REQUEST["action"]) == "save"){
+            
+            $data = $_POST;
+
+            try{
+                $conn = mysqli_connect("localhost", "root", "", "eventos");
+                $sql = "INSERT INTO PARTICIPANTE (ID, NOME, ENDERECO, BAIRRO, CIDADE, TELEFONE, EMAIL)
+                        VALUES (DEFAULT, '{$data['nome']}', '{$data['endereco']}', '{$data['bairro']}', {$data['cidade']}, '{$data['telefone']}', '{$data['email']}')";
+                $result = mysqli_query($conn, $sql);
+                mysqli_close($conn);                
+                header("Location: listaPalestra.php");
+                // echo "<p>Cadastrado com sucesso! <a href='listaPalestra.php'>Voltar</a></p>";
+            } catch(Exception $e)
+            {
+                echo "Erro: " . $e->getMessage();
+            }
+        }
+    ?>
+
+    <form enctype="multipart/form-data" action="participanteForm.php?action=save" method="post">
         <label for="id">
             Codigo
             <input type="number" name="id" id="id" readonly>
