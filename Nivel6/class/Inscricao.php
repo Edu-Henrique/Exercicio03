@@ -22,7 +22,8 @@ class Inscricao
     public function find($id)
     {
         $conn = self::getInstance();
-        $result = $conn->query("SELECT * FROM INSCRICAO WHERE ID = {$id}");
+        $result = $conn->prepare("SELECT * FROM INSCRICAO WHERE ID = :id");
+        $result->execute([":id" => $id]);
         return $result->fetch();
     }
 
@@ -50,9 +51,13 @@ class Inscricao
 
         if(empty($ministrante["id"])){
             $sql = "INSERT INTO INSCRICAO (ID, id_participante, id_palestra)
-                VALUES (DEFAULT, '{$inscricao['id_participante']}', '{$inscricao['id_palestra']}')";
+                VALUES (DEFAULT, :id_participante, :id_palestra)";
         }
 
-        return $conn->query($sql);
+        $result = $conn->prepare($sql);
+        return $result->execute([
+            ":id_participante" => $inscricao["id_participante"],
+            ":id_palestra" => $inscricao["id_palestra"]
+        ]);
     }
 }
