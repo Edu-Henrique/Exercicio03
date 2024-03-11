@@ -2,16 +2,40 @@
 
 class Participante
 {
+
+    public static $conn;
+
+    public static function getInstance()
+    {
+        if(empty(self::$conn)){
+            $ini = parse_ini_file("config/config.ini");
+            $host = $ini["host"];
+            $name = $ini["name"];
+            $user = $ini["user"];
+            $pass = $ini["pass"];
+            self::$conn = new PDO("mysql:dbname={$name};host={$host};user={$user};password={$pass}");
+            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        return self::$conn;
+    }
+
     public function save($participante)
     {
-        $conn = new PDO("mysql:dbname=eventos;host=localhost;user=root;password=");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn = self::getInstance();
 
         if(empty($ministrante["id"])){
             $sql = "INSERT INTO PARTICIPANTE (ID, NOME, ENDERECO, BAIRRO, CIDADE, TELEFONE, EMAIL)
-                VALUES (DEFAULT, '{$participante['nome']}', '{$participante['endereco']}', '{$participante['bairro']}', {$participante['cidade']}, '{$participante['telefone']}', '{$participante['email']}')";
+                VALUES (DEFAULT, :nome, :endereco, :bairro, :cidade, :telefone, :email)";
         }
 
-        return $conn->query($sql);
+        $result = $conn->prepare($sql);
+        return $result->execute([
+            ":nome"     => $participante["nome"],
+            ":endereco" => $participante["endereco"],
+            ":bairro"   => $participante["bairro"],
+            ":cidade"   => $participante["cidade"],
+            ":telefone" => $participante["telefone"],
+            ":email"    => $participante["email"]
+        ]);
     }
 }

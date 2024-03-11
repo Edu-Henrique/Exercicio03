@@ -3,18 +3,33 @@
 class Inscricao
 {
 
+    public static $conn;
+
+    public static function getInstance()
+    {
+        if(empty(self::$conn)){
+            $ini = parse_ini_file("config/config.ini");
+            $host = $ini["host"];
+            $name = $ini["name"];
+            $user = $ini["user"];
+            $pass = $ini["pass"];
+            self::$conn = new PDO("mysql:dbname={$name};host={$host};user={$user};password={$pass}");
+            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        return self::$conn;
+    }
+
     public function find($id)
     {
-        $conn = new PDO("mysql:dbname=eventos;host=localhost;user=root;password=");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn = self::getInstance();
         $result = $conn->query("SELECT * FROM INSCRICAO WHERE ID = {$id}");
         return $result->fetch();
     }
 
     public function all()
     {
-        $conn = new PDO("mysql:dbname=eventos;host=localhost;user=root;password=");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn = self::getInstance();
+        
         $sql = "SELECT I.id,
                 P.id AS ID_PARTICIPANTE,
                 P.nome AS NOME_PARTICIPANTE,
@@ -31,8 +46,7 @@ class Inscricao
 
     public function save($inscricao)
     {
-        $conn = new PDO("mysql:dbname=eventos;host=localhost;user=root;password=");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn = self::getInstance();
 
         if(empty($ministrante["id"])){
             $sql = "INSERT INTO INSCRICAO (ID, id_participante, id_palestra)
