@@ -18,7 +18,7 @@ class Palestra
         return self::$conn;
     }
 
-    public function find($id)
+    public static function find($id)
     {        
         $conn = self::getInstance();
         $result = $conn->prepare("SELECT * FROM PALESTRAS WHERE ID = :id");
@@ -26,7 +26,7 @@ class Palestra
         return $result->fetch();
     }
 
-    public function delete($id)
+    public static function delete($id)
     {
         $conn = self::getInstance();
         $result = $conn->prepare("DELETE FROM PALESTRAS WHERE ID = :id");
@@ -34,14 +34,14 @@ class Palestra
         return $result;
     }
 
-    public function all()
+    public static function all()
     {
         $conn = self::getInstance();
         $result = $conn->query("SELECT * FROM PALESTRAS ORDER BY ID");
         return $result->fetchAll();
     }
 
-    public function save($palestra)
+    public static function save($palestra)
     {
         $conn = self::getInstance();
         

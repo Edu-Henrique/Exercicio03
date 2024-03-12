@@ -18,7 +18,7 @@ class Ministrante
         return self::$conn;
     }
 
-    public function save($ministrante){
+    public static function save($ministrante){
         $conn = self::getInstance();
 
         if(empty($ministrante["id"])){

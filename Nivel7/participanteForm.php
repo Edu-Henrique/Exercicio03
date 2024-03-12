@@ -4,23 +4,29 @@ require_once __DIR__ . "/lista_combo_cidades.php";
 require_once __DIR__ . "/db/participante_db.php";
 require_once __DIR__ . "/class/Participante.php";
 
-if(!empty($_REQUEST["action"]) and ($_REQUEST["action"]) == "save"){
-    
-    $data = $_POST;
+class ParticipanteForm
+{
+    private $html;
 
-    try{        
-        (new Participante)->save($data);
-        header("Location: listaPalestra.php");        
-    } catch(Exception $e)
+    public function __construct()
     {
-        echo "Erro: " . $e->getMessage();
+        $this->html = file_get_contents("html/templateParticipanteForm.html");
+        $cidades = lista_combo_cidades();
+        $this->html = str_replace("{cidades}", $cidades, $this->html);
+    }
+
+    public function save($param)
+    {
+        try {
+            Participante::save($param);
+            header("Location: index.php?class=ListaPalestra");
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function show()
+    {
+        echo $this->html;
     }
 }
-
-
-$cidades = lista_combo_cidades();
-
-$index = file_get_contents("html/templateParticipanteForm.html");
-$index = str_replace("{cidades}", $cidades, $index);
-
-echo $index;

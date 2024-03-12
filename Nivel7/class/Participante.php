@@ -19,7 +19,7 @@ class Participante
         return self::$conn;
     }
 
-    public function save($participante)
+    public static function save($participante)
     {
         $conn = self::getInstance();
 

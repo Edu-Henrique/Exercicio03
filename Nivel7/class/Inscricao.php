@@ -19,7 +19,7 @@ class Inscricao
         return self::$conn;
     }
 
-    public function find($id)
+    public static function find($id)
     {
         $conn = self::getInstance();
         $result = $conn->prepare("SELECT * FROM INSCRICAO WHERE ID = :id");
@@ -27,7 +27,7 @@ class Inscricao
         return $result->fetch();
     }
 
-    public function all()
+    public static function all()
     {
         $conn = self::getInstance();
         
@@ -45,7 +45,7 @@ class Inscricao
         return $result->fetchAll();
     }
 
-    public function save($inscricao)
+    public static function save($inscricao)
     {
         $conn = self::getInstance();
 
